@@ -1411,6 +1411,13 @@ def test_distribution_version(am, mocker, testcase):
     def mock_distro_codename():
         return testcase['distro']['codename']
 
+    def mock_get_distribution_codename():
+        # distribution's _guess_distribution() will default this to 'NA' if the
+        # codename is the empty string.
+        if testcase['distro']['codename'] == '':
+            return 'NA'
+        return testcase['distro']['codename']
+
     def mock_open(filename, mode='r'):
         if filename in testcase['input']:
             file_object = mocker.mock_open(read_data=testcase['input'][filename]).return_value
@@ -1435,6 +1442,9 @@ def test_distribution_version(am, mocker, testcase):
     mocker.patch('platform.system', mock_platform_system)
     mocker.patch('platform.release', mock_platform_release)
     mocker.patch('platform.version', mock_platform_version)
+    mocker.patch(
+        'ansible.module_utils.facts.system.distribution.get_distribution_codename',
+        mock_get_distribution_codename)
 
     real_open = builtins.open
     mocker.patch.object(builtins, 'open', new=mock_open)
