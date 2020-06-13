@@ -49,8 +49,8 @@ options:
     version_added: '1.4'
   remote_src:
     description:
-    - If C(no), it will search for src at originating/master machine.
-    - If C(yes), it will go to the remote/target machine for the src.
+    - If C(no), it will search for src on the controller node.
+    - If C(yes), it will search for src on the managed (remote) node.
     type: bool
     default: yes
     version_added: '1.4'

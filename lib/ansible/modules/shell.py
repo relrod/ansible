@@ -179,7 +179,7 @@ stdout:
     description: The command standard output
     returned: always
     type: str
-    sample: 'Clustering node rabbit@slave1 with rabbit@master …'
+    sample: ' 20:45:08 up 19 days,  9:39,  2 users,  load average: 0.90, 1.04, 1.39'
 stderr:
     description: The command standard error
     returned: always
@@ -189,7 +189,7 @@ cmd:
     description: The command executed by the task
     returned: always
     type: str
-    sample: 'rabbitmqctl join_cluster rabbit@master'
+    sample: 'uptime'
 rc:
     description: The command return code (0 means success)
     returned: always
@@ -199,7 +199,7 @@ stdout_lines:
     description: The command standard output split in lines
     returned: always
     type: list
-    sample: [u'Clustering node rabbit@slave1 with rabbit@master …']
+    sample: [u' 20:45:08 up 19 days,  9:39,  2 users,  load average: 0.90, 1.04, 1.39']
 stderr_lines:
     description: The command standard error split in lines
     returned: always
