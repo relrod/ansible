@@ -1,0 +1,2 @@
+minor_changes:
+  - lineinfile - remove block of seemingly dead code

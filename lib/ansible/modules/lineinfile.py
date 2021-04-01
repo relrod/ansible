@@ -389,44 +389,7 @@ def present(module, dest, regexp, search_string, line, insertafter, insertbefore
         if not b_new_line.endswith(b_linesep):
             b_new_line += b_linesep
 
-        # If no regexp or search_string was given and no line match is found anywhere in the file,
-        # insert the line appropriately if using insertbefore or insertafter
-        if (regexp, search_string, match) == (None, None, None) and not exact_line_match:
-
-            # Insert lines
-            if insertafter and insertafter != 'EOF':
-                # Ensure there is a line separator after the found string
-                # at the end of the file.
-                if b_lines and not b_lines[-1][-1:] in (b'\n', b'\r'):
-                    b_lines[-1] = b_lines[-1] + b_linesep
-
-                # If the line to insert after is at the end of the file
-                # use the appropriate index value.
-                if len(b_lines) == index[1]:
-                    if b_lines[index[1] - 1].rstrip(b'\r\n') != b_line:
-                        b_lines.append(b_line + b_linesep)
-                        msg = 'line added'
-                        changed = True
-                elif b_lines[index[1]].rstrip(b'\r\n') != b_line:
-                    b_lines.insert(index[1], b_line + b_linesep)
-                    msg = 'line added'
-                    changed = True
-
-            elif insertbefore and insertbefore != 'BOF':
-                # If the line to insert before is at the beginning of the file
-                # use the appropriate index value.
-                if index[1] <= 0:
-                    if b_lines[index[1]].rstrip(b'\r\n') != b_line:
-                        b_lines.insert(index[1], b_line + b_linesep)
-                        msg = 'line added'
-                        changed = True
-
-                elif b_lines[index[1] - 1].rstrip(b'\r\n') != b_line:
-                    b_lines.insert(index[1], b_line + b_linesep)
-                    msg = 'line added'
-                    changed = True
-
-        elif b_lines[index[0]] != b_new_line:
+        if b_lines[index[0]] != b_new_line:
             b_lines[index[0]] = b_new_line
             msg = 'line replaced'
             changed = True
